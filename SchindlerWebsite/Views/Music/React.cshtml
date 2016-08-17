@@ -138,18 +138,26 @@
 
         function drawBackgroundColor() {
             data = new google.visualization.DataTable();
-            data.addColumn('number', 'X');
-            data.addColumn('number', 'Dogs');
+            data.addColumn('number', 'Time');
+            data.addColumn('number', 'Enjoyment');
 
             data.addRows([
-            [0,0]]);
+            [0, 50]]);
 
             options = {
                 hAxis: {
-                    title: 'Time'
+                    title: 'Time',
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        max: player.getDuration(),
+                    }
                 },
                 vAxis: {
-                    title: 'Enjoyment'
+                    title: 'Enjoyment',
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        max: 100,
+                    }
                 },
                 backgroundColor: '#f1f8e9',
                 width: 1000,
@@ -162,13 +170,15 @@
         }
 
         function updateData() {
-            data.addRows([[player.getCurrentTime(), 30]]);
+            data.addRows([[player.getCurrentTime(), Number(document.getElementById("rating").value)]]);
             chart.draw(data, options);
         }
 
-        setInterval(updateData, 800);
+        setInterval(updateData, 100);
 
     </script>
+
+    <input type="range" id="rating" value="50">
 
 </body>
 </html>
