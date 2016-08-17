@@ -40,8 +40,11 @@
         }
 
         function onPlayerReady(event) {
+            setInterval(updateTime, 1000);
             event.target.playVideo();
             setTotalTime(); //Scott put this in here!
+            drawChart();
+            setInterval(updateData, 1000);
         }
     </script>
 
@@ -81,49 +84,6 @@
             return (match && match[7].length == 11) ? match[7] : false;
         }
     </script>
-    <script>
-        setInterval(updateTime, 100);
-        //setInterval(setTotalTime, 100);
-    </script>
-    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>*@
-
-    @*<canvas id="myChart" width="400" height="400"></canvas>
-        <script>
-            var data = {
-                datasets: [
-                    {
-                        label: "Enjoyement Graph",
-                        data: [{
-                            x: -10,
-                            y: 0
-                        }, {
-                            x: 0,
-                            y: 10
-                        }, {
-                            x: 10,
-                            y: 5
-                        }]
-                    }]
-            };
-            var options = {
-                scales: {
-                    xAxes: [{
-                        type: 'linear',
-                        position: 'bottom'
-                    }]
-                },
-                responsive: false,
-                maintainAspectRatio: true
-            };
-            var ctx = document.getElementById("myChart");
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: data,
-                options: options});
-
-
-        </script>*@
-
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <div id="chart_div"></div>
@@ -134,9 +94,8 @@
         var options;
 
         google.charts.load('current', { packages: ['corechart', 'line'] });
-        google.charts.setOnLoadCallback(drawBackgroundColor);
 
-        function drawBackgroundColor() {
+        function drawChart() {
             data = new google.visualization.DataTable();
             data.addColumn('number', 'Time');
             data.addColumn('number', 'Enjoyment');
@@ -173,9 +132,6 @@
             data.addRows([[player.getCurrentTime(), Number(document.getElementById("rating").value)]]);
             chart.draw(data, options);
         }
-
-        setInterval(updateData, 100);
-
     </script>
 
     <input type="range" id="rating" value="50">
