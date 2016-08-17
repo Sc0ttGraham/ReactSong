@@ -11,6 +11,7 @@
         URL: <input id="userURL" type="text" value="https://www.youtube.com/watch?v=7YcW25PHnAA">
         <br>
         <button onclick="refreshIframe();">Submit</button>
+        <button onclick="updateData();">AddData</button>
     </div>
     <br />
 
@@ -29,7 +30,7 @@
         var player;
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
-                height: '390',
+                height: '50',
                 width: '640',
                 videoId: getID(),
                 events: {
@@ -84,43 +85,90 @@
         setInterval(updateTime, 100);
         //setInterval(setTotalTime, 100);
     </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>
+    @*<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.min.js"></script>*@
 
-    <canvas id="myChart" width="400" height="400"></canvas>
-    <script>
-        var data = {
-            datasets: [
-                {
-                    label: "Enjoyement Graph",
-                    data: [{
-                        x: -10,
-                        y: 0
-                    }, {
-                        x: 0,
-                        y: 10
-                    }, {
-                        x: 10,
-                        y: 5
+    @*<canvas id="myChart" width="400" height="400"></canvas>
+        <script>
+            var data = {
+                datasets: [
+                    {
+                        label: "Enjoyement Graph",
+                        data: [{
+                            x: -10,
+                            y: 0
+                        }, {
+                            x: 0,
+                            y: 10
+                        }, {
+                            x: 10,
+                            y: 5
+                        }]
                     }]
-                }]
-        };
-        var options = {
-            scales: {
-                xAxes: [{
-                    type: 'linear',
-                    position: 'bottom'
-                }]
-            },
-            responsive: false,
-            maintainAspectRatio: true
-        };
-        var ctx = document.getElementById("myChart");
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: options});
+            };
+            var options = {
+                scales: {
+                    xAxes: [{
+                        type: 'linear',
+                        position: 'bottom'
+                    }]
+                },
+                responsive: false,
+                maintainAspectRatio: true
+            };
+            var ctx = document.getElementById("myChart");
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: options});
 
-      
+
+        </script>*@
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="chart_div"></div>
+
+    <script>
+        var chart;
+        var data;
+        var options;
+
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+        google.charts.setOnLoadCallback(drawBackgroundColor);
+
+        function drawBackgroundColor() {
+            data = new google.visualization.DataTable();
+            data.addColumn('number', 'X');
+            data.addColumn('number', 'Dogs');
+
+            data.addRows([
+            [0,0]]);
+
+            options = {
+                hAxis: {
+                    title: 'Time'
+                },
+                vAxis: {
+                    title: 'Enjoyment'
+                },
+                backgroundColor: '#f1f8e9',
+                width: 1000,
+                height: 500
+            };
+
+
+            chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        function updateData() {
+            data.addRows([[player.getCurrentTime(), 30]]);
+            chart.draw(data, options);
+        }
+
+        setInterval(updateData, 800);
+
     </script>
+
 </body>
 </html>
