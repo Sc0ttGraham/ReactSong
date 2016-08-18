@@ -39,12 +39,11 @@
         }
 
         function onPlayerReady(event) {
-            setInterval(updateTime, 1000);
             event.target.playVideo();
             setTotalTime();
             setVideoTitle();
             drawChart();
-            setInterval(updateData, 1000);
+            setInterval(updatePage, 1000);
         }
     </script>
 
@@ -79,6 +78,11 @@
             var m = Math.floor(d % 3600 / 60);
             var s = Math.floor(d % 3600 % 60);
             return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
+        }
+        function updatePage()
+        {
+            updateTime();
+            updateData();
         }
     </script>
 
