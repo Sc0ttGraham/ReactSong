@@ -6,19 +6,20 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <div>
+        <div hidden>
+            <input id="userURL" type="text" value=@Model.URL>
+            <br>
+        </div>
 
-    <div hidden>
-        <input id="userURL" type="text" value=@Model.URL>
-        <br>
+        <div id="player"></div>
+
+        <h3 style="text-align:center"><text style="color:#ff0066"><text id="videoTime">0:00</text>/<text id="totalTime">0:00</text></text>  <text id="videoTitle"></text></h3>
+
+        <div align="center" id="chart_div"></div>
+
+        <div align="center"><input type="range" id="rating" value="50" style="width:100%"></div>
     </div>
-
-    <br />
-
-    <div id="player"></div>
-
-    <br />
-
-    <h3><text style="color:dodgerblue"><text id="videoTime">0:00</text>/<text id="totalTime">0:00</text></text>  <text id="videoTitle"></text></h3>
 
     <script>
         var tag = document.createElement('script');
@@ -95,7 +96,6 @@
     </script>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <div id="chart_div"></div>
 
     <script>
         var chart;
@@ -132,10 +132,11 @@
                     },
                     ticks: [0, 25, 50, 75, 100]
                 },
-                backgroundColor: '#f1f8e9',
+                backgroundColor: 'transparent',
                 width: 800,
                 height: 400,
-                legend: 'none'
+                legend: 'none',
+                colors:['#ff0066']
             };
 
 
@@ -149,7 +150,6 @@
         }
     </script>
 
-    <input type="range" id="rating" value="50" style="width:100%">
 
 </body>
 </html>
