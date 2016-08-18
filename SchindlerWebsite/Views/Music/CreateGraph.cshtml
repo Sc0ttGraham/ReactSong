@@ -108,18 +108,20 @@
                     viewWindowMode: 'explicit',
                     viewWindow: {
                         max: player.getDuration(),
-                    }
+                    },
+                    ticks: [0, player.getDuration()/2, player.getDuration()]
                 },
                 vAxis: {
                     title: 'Enjoyment',
                     viewWindowMode: 'explicit',
                     viewWindow: {
                         max: 100,
-                    }
+                    },
+                    ticks: [0, 25, 50, 75, 100]
                 },
                 backgroundColor: '#f1f8e9',
-                width: 1000,
-                height: 500
+                width: 800,
+                height: 400
             };
 
 
