@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "CreateGraph";
+}
+
+<!DOCTYPE html>
+<html>
+<body>
+
+    <div>
+        <input id="userURL" type="text" value=@Model.URL>
+        <br>
+    </div>
+
+    <br />
+
+    <div id="player"></div>
+
+    <br />
+
+    <text id="videoTime"></text>/<text id="totalTime"></text>
+
+    <script>
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/player_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: getID(),
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            setInterval(updateTime, 1000);
+            event.target.playVideo();
+            setTotalTime(); //Scott put this in here!
+            drawChart();
+            setInterval(updateData, 1000);
+        }
+    </script>
+
+    <script>
+        function addURL() {
+            tag.src = getElementById("userURL").value
+        }
+
+        function refreshIframe() {
+            //document.getElementById('player').src = "https://www.youtube.com/embed/s7wmiS2mSXY";
+            document.getElementById('player').src = "https://www.youtube.com/embed/" + getID();
+        }
+
+        function getID() {
+            return document.getElementById("userURL").value;
+        }
+
+        function updateTime() {
+            document.getElementById("videoTime").innerHTML = secondsToHms(player.getCurrentTime());
+        }
+        function setTotalTime() {
+            document.getElementById("totalTime").innerHTML = secondsToHms(player.getDuration());
+        }
+        function secondsToHms(d) {
+            d = Number(d);
+            var h = Math.floor(d / 3600);
+            var m = Math.floor(d % 3600 / 60);
+            var s = Math.floor(d % 3600 % 60);
+            return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
+        }
+    </script>
+
+    <script type="text/javascript">
+        function youtube_parser(url) {
+            var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+            var match = url.match(regExp);
+            return (match && match[7].length == 11) ? match[7] : false;
+        }
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="chart_div"></div>
+
+    <script>
+        var chart;
+        var data;
+        var options;
+
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+
+        function drawChart() {
+            data = new google.visualization.DataTable();
+            data.addColumn('number', 'Time');
+            data.addColumn('number', 'Enjoyment');
+
+            data.addRows([
+            [0, 50]]);
+
+            options = {
+                hAxis: {
+                    title: 'Time',
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        max: player.getDuration(),
+                    }
+                },
+                vAxis: {
+                    title: 'Enjoyment',
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        max: 100,
+                    }
+                },
+                backgroundColor: '#f1f8e9',
+                width: 1000,
+                height: 500
+            };
+
+
+            chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        function updateData() {
+            data.addRows([[player.getCurrentTime(), Number(document.getElementById("rating").value)]]);
+            chart.draw(data, options);
+        }
+    </script>
+
+    <input type="range" id="rating" value="50">
+
+</body>
+</html>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchindlerWebsite.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,13 @@ namespace SchindlerWebsite.Controllers
         public ActionResult React()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult CreateGraph(string search)
+        {
+            SongQuery query = new SongQuery(search);
+            return View(query);
         }
     }
 }
