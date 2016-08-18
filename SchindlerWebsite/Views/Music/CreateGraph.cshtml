@@ -96,20 +96,22 @@
 
         function drawChart() {
             data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'Time');
+            data.addColumn('timeofday', 'Time');
             data.addColumn('number', 'Enjoyment');
 
             data.addRows([
-            [new Date(2014, 10, 24, 0, 0, 0), 50]]);
+            [[0, 0, 0], 50]]);
 
             options = {
                 hAxis: {
                     title: 'Time',
                     viewWindowMode: 'explicit',
                     viewWindow: {
-                        max: new Date(2014, 10, 24, 0, 0, player.getDuration()),
+                        max: [0, 0, Math.round(player.getDuration())],
                     },
-                    ticks: [new Date(2014, 10, 24, 0, 0, 0), new Date(2014, 10, 24, 0, 0, player.getDuration()/2), new Date(2014, 10, 24, 0, 0, player.getDuration())],
+                    ticks: [[0, 0, 0], [0, 0, Math.round(player.getDuration() / 4)],
+                        [0, 0, Math.round(player.getDuration() / 2)], [0, 0, Math.round(player.getDuration() * (3/4))],
+                        [0, 0, Math.round(player.getDuration())]],
                     format: 'mm:ss'
                 },
                 vAxis: {
@@ -122,7 +124,8 @@
                 },
                 backgroundColor: '#f1f8e9',
                 width: 800,
-                height: 400
+                height: 400,
+                legend: 'none'
             };
 
 
@@ -131,7 +134,7 @@
         }
 
         function updateData() {
-            data.addRows([[new Date(2014, 10, 24, 0, 0, player.getCurrentTime()), Number(document.getElementById("rating").value)]]);
+            data.addRows([[[0, 0, Math.round(player.getCurrentTime())], Number(document.getElementById("rating").value)]]);
             chart.draw(data, options);
         }
     </script>
