@@ -18,7 +18,7 @@
 
     <br />
 
-    <text id="videoTime">0:00</text>/<text id="totalTime">0:00</text>
+    <text id="videoTime">0:00</text>/<text id="totalTime">0:00</text> <text id="videoTitle"></text>
 
     <script>
         var tag = document.createElement('script');
@@ -41,7 +41,8 @@
         function onPlayerReady(event) {
             setInterval(updateTime, 1000);
             event.target.playVideo();
-            setTotalTime(); //Scott put this in here!
+            setTotalTime();
+            setVideoTitle();
             drawChart();
             setInterval(updateData, 1000);
         }
@@ -59,6 +60,11 @@
 
         function getID() {
             return document.getElementById("userURL").value;
+        }
+
+        function setVideoTitle(){
+            var videoData = player.getVideoData();
+            document.getElementById("videoTitle").innerHTML = videoData['title'];
         }
 
         function updateTime() {
