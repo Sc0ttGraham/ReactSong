@@ -5,6 +5,125 @@
 
 <!DOCTYPE html>
 <html>
+<head>
+    <style>
+        .timer {
+            border-radius: 25px;
+            padding: 5px;
+            color: #ff0066;
+            font-size: 18px;
+            background-color: #ffb3d1;
+            opacity: 0.5;
+            -webkit-transition: opacity 0.5s ease-out;
+            -moz-transition: opacity 0.5s ease-out;
+            -ms-transition: opacity 0.5s ease-out;
+            -o-transition: opacity 0.5s ease-out;
+            transition: opacity 0.5s ease-out;
+        }
+            .timer:hover {
+                opacity: 1;
+            }
+
+        body {
+            padding: 30px;
+        }
+
+        input[type=range] {
+            /*removes default webkit styles*/
+            -webkit-appearance: none;
+            /*fix for FF unable to apply focus style bug */
+            border: 1px solid white;
+            /*required for proper track sizing in FF*/
+            width: 300px;
+        }
+
+            input[type=range]::-webkit-slider-runnable-track {
+                width: 300px;
+                height: 5px;
+                background: #ddd;
+                border: none;
+                border-radius: 3px;
+            }
+
+            input[type=range]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                border: none;
+                height: 16px;
+                width: 16px;
+                border-radius: 50%;
+                background: #ff0066;
+                margin-top: -4px;
+            }
+
+            input[type=range]:focus {
+                outline: none;
+            }
+
+                input[type=range]:focus::-webkit-slider-runnable-track {
+                    background: #ccc;
+                }
+
+            input[type=range]::-moz-range-track {
+                width: 300px;
+                height: 5px;
+                background: #ddd;
+                border: none;
+                border-radius: 3px;
+            }
+
+            input[type=range]::-moz-range-thumb {
+                border: none;
+                height: 16px;
+                width: 16px;
+                border-radius: 50%;
+                background: #ff0066;
+            }
+
+            /*hide the outline behind the border*/
+            input[type=range]:-moz-focusring {
+                outline: 1px solid white;
+                outline-offset: -1px;
+            }
+
+            input[type=range]::-ms-track {
+                width: 300px;
+                height: 5px;
+                /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+                background: transparent;
+                /*leave room for the larger thumb to overflow with a transparent border */
+                border-color: transparent;
+                border-width: 6px 0;
+                /*remove default tick marks*/
+                color: transparent;
+            }
+
+            input[type=range]::-ms-fill-lower {
+                background: #777;
+                border-radius: 10px;
+            }
+
+            input[type=range]::-ms-fill-upper {
+                background: #ddd;
+                border-radius: 10px;
+            }
+
+            input[type=range]::-ms-thumb {
+                border: none;
+                height: 16px;
+                width: 16px;
+                border-radius: 50%;
+                background: #ff0066;
+            }
+
+            input[type=range]:focus::-ms-fill-lower {
+                background: #888;
+            }
+
+            input[type=range]:focus::-ms-fill-upper {
+                background: #ccc;
+            }
+    </style>
+</head>
 <body>
     <div>
         <div hidden>
@@ -14,7 +133,7 @@
 
         <div id="player"></div>
 
-        <h3 style="text-align:center"><text style="color:#ff0066"><text id="videoTime">0:00</text>/<text id="totalTime">0:00</text></text>  <text id="videoTitle"></text></h3>
+        <h3 style="text-align:center"><text class="timer"><text id="videoTime">0:00</text>/<text id="totalTime">0:00</text></text>  <text id="videoTitle"></text></h3>
 
         <div id="chart_div"></div>
         <br />
@@ -71,7 +190,7 @@
             return document.getElementById("userURL").value;
         }
 
-        function setVideoTitle(){
+        function setVideoTitle() {
             var videoData = player.getVideoData();
             document.getElementById("videoTitle").innerHTML = videoData['title'];
         }
@@ -89,18 +208,15 @@
             var s = Math.floor(d % 3600 % 60);
             return ((h > 0 ? h + ":" + (m < 10 ? "0" : "") : "") + m + ":" + (s < 10 ? "0" : "") + s);
         }
-        function updatePage()
-        {
+        function updatePage() {
             var oldtime = document.getElementById("videoTime").innerHTML;
             updateTime();
-            if (oldtime != document.getElementById("videoTime").innerHTML)
-            {
+            if (oldtime != document.getElementById("videoTime").innerHTML) {
                 updateData();
             }
         }
 
-        function videoDuration()
-        {
+        function videoDuration() {
             return (player.getDuration() - 1)
         }
     </script>
@@ -154,7 +270,7 @@
                 //width: 800,
                 //height: 400,
                 legend: 'none',
-                colors:['#ff0066']
+                colors: ['#ff0066']
             };
 
 
@@ -170,8 +286,8 @@
         function printChart() {
             window.location = chart.getImageURI();
         }
-        
+
     </script>
-    
+
 </body>
 </html>
