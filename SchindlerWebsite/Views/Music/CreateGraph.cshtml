@@ -27,6 +27,7 @@
         tag.src = "https://www.youtube.com/player_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        var videoRunning;
 
         var player;
         function onYouTubeIframeAPIReady() {
@@ -47,6 +48,13 @@
             drawChart();
             setInterval(updatePage, 1000);
         }
+
+        function onPlayerStateChange(event) {
+            if (event.data === 0) {
+                videoRunning == true;
+            }
+        }
+
     </script>
 
     <script>
@@ -72,7 +80,7 @@
             document.getElementById("videoTime").innerHTML = secondsToHms(player.getCurrentTime());
         }
         function setTotalTime() {
-            document.getElementById("totalTime").innerHTML = secondsToHms(player.getDuration());
+            document.getElementById("totalTime").innerHTML = secondsToHms(videoDuration());
         }
         function secondsToHms(d) {
             d = Number(d);
@@ -89,6 +97,11 @@
             {
                 updateData();
             }
+        }
+
+        function videoDuration()
+        {
+            return (player.getDuration() - 1)
         }
     </script>
 
@@ -122,11 +135,11 @@
                     title: 'Time',
                     viewWindowMode: 'explicit',
                     viewWindow: {
-                        max: [0, 0, Math.round(player.getDuration())],
+                        max: [0, 0, Math.round(videoDuration())],
                     },
-                    ticks: [[0, 0, Math.round(player.getDuration() / 8)], [0, 0, Math.round(player.getDuration() / 4)], [0, 0, Math.round(player.getDuration() * (3/8))],
-                        [0, 0, Math.round(player.getDuration() / 2)], [0, 0, Math.round(player.getDuration() * (5 / 8))], [0, 0, Math.round(player.getDuration() * (3 / 4))],
-                        [0, 0, Math.round(player.getDuration() * (7 / 8))], [0, 0, Math.round(player.getDuration())]],
+                    ticks: [[0, 0, Math.round(videoDuration() / 8)], [0, 0, Math.round(videoDuration() / 4)], [0, 0, Math.round(videoDuration() * (3 / 8))],
+                        [0, 0, Math.round(videoDuration() / 2)], [0, 0, Math.round(videoDuration() * (5 / 8))], [0, 0, Math.round(videoDuration() * (3 / 4))],
+                        [0, 0, Math.round(videoDuration() * (7 / 8))], [0, 0, Math.round(videoDuration())]],
                     format: 'mm:ss'
                 },
                 vAxis: {
