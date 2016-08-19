@@ -19,6 +19,7 @@
         <div id="chart_div"></div>
         <br />
         <div align="center"><input type="range" id="rating" value="50" style="width:100%"></div>
+        <button onclick="printChart()">Print</button> <br />
     </div>
 
     <script>
@@ -82,8 +83,12 @@
         }
         function updatePage()
         {
+            var oldtime = document.getElementById("videoTime").innerHTML;
             updateTime();
-            updateData();
+            if (oldtime != document.getElementById("videoTime").innerHTML)
+            {
+                updateData();
+            }
         }
     </script>
 
@@ -148,8 +153,12 @@
             data.addRows([[[0, 0, Math.round(player.getCurrentTime())], Number(document.getElementById("rating").value)]]);
             chart.draw(data, options);
         }
+
+        function printChart() {
+            window.location = chart.getImageURI();
+        }
+        
     </script>
-
-
+    
 </body>
 </html>
