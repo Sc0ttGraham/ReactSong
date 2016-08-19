@@ -28,9 +28,30 @@
             color: #8c8c8c;
         }
 
+        .plusMinus{
+            color: #ff0066;
+            font-size: 15px;
+        }
+
+        .button{
+            border-radius: 25px;
+            padding: 5px;
+            /*color: #ff0066;*/
+            font-size: 18px;
+            background-color: #ff0066;
+            opacity: 0.8;
+            -webkit-transition: opacity 0.5s ease-out;
+            -moz-transition: opacity 0.5s ease-out;
+            -ms-transition: opacity 0.5s ease-out;
+            -o-transition: opacity 0.5s ease-out;
+            transition: opacity 0.5s ease-out;
+        }
+        .button:hover {
+                opacity: 1;
+            }
+
         body {
             padding: 30px;
-            background-color: #333333;
         }
 
         input[type=range] {
@@ -142,7 +163,8 @@
 
         <div id="chart_div"></div>
         <br />
-        <div align="center"><input type="range" id="rating" value="50" style="width:100%"></div>
+        <div align="center" class="plusMinus">- <input type="range" id="rating" value="50" style="width:100%"> +</div>
+
         <button onclick="printChart()">Print</button> <br />
     </div>
 

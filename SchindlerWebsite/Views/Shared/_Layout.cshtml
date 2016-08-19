@@ -7,6 +7,45 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <style>
+        body {
+            background-color: #333333;
+            color: white;
+        }
+
+        h1{
+            color: #ff0066 !important;
+        }
+        .navbar-brand {
+            color: #ff0066 !important;
+        }
+
+            .navbar-brand:visited {
+                color: #ff0066 !important;
+            }
+
+        .navbar-default-color {
+            color: #ff0066 !important;
+        }
+
+        .navbar-inverse {
+            color: #ff0066 !important;
+        }
+
+        .navbar-brand:hover{
+            color: #FFFFFF !important;
+        }
+
+        .btn-lg{
+            color: white !important;
+            background: #ff0066 !important;
+        }
+
+        .jumbotron{
+            background: #99003d !important;
+        }
+    </style>
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -34,7 +73,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Dr. Robert Schindler</p>
         </footer>
     </div>
 
