@@ -10,7 +10,7 @@
     <style>
         body {
             background-color: #333333;
-            color: white;
+            color: #ff9999;
         }
 
         h1{
@@ -56,7 +56,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("ReactSong", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink("ReactSong", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                <a href="@Url.Action("Index", "Home")" class = "navbar-brand">
+                    ReactSong
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

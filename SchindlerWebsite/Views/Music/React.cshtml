@@ -7,22 +7,15 @@
 <html>
 <body>
     <div class="jumbotron">
-        <br />
-        Find a song from YouTube, drop the URL right here, and start listening! <br /> <br />
+        <h1>Rate a Song  <i class="glyphicon glyphicon-signal"></i></h1>
+        <p class="lead"> Find a song from YouTube, copy and paste the URL right here, and start listening!</p>
         <div>
             <form method="get" action="@Url.Action("CreateGraph", "Music")">
-                <label for="search">URL</label>
+                <label for="search"><i class="glyphicon glyphicon-search"></i></label>
                 <input type="text" name="search" id="search" />
-                <button type="submit">Submit URL</button>
+                <button type="submit" class="btn-lg">Submit URL &raquo;</button>
             </form>
         </div>
     </div>
-    <script type="text/javascript">
-        function youtube_parser(url) {
-            var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-            var match = url.match(regExp);
-            return (match && match[7].length == 11) ? match[7] : false;
-        }
-    </script>
 </body>
 </html>
