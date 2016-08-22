@@ -166,6 +166,7 @@
         <div align="center" class="plusMinus">- <input type="range" id="rating" value="50" style="width:100%"> +</div>
 
         <button onclick="printChart()">Print</button> <br />
+        <div id="printchart_div" style="display: none"></div>
     </div>
 
     <script>
@@ -317,7 +318,45 @@
         }
 
         function printChart() {
-            window.location = chart.getImageURI();
+            var videoData = player.getVideoData();
+            var printoptions = {
+                hAxis: {
+                    title: 'Time',
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        max: [0, 0, Math.round(videoDuration())],
+                    },
+                    ticks: [[0, 0, Math.round(videoDuration() / 8)], [0, 0, Math.round(videoDuration() / 4)], [0, 0, Math.round(videoDuration() * (3 / 8))],
+                        [0, 0, Math.round(videoDuration() / 2)], [0, 0, Math.round(videoDuration() * (5 / 8))], [0, 0, Math.round(videoDuration() * (3 / 4))],
+                        [0, 0, Math.round(videoDuration() * (7 / 8))], [0, 0, Math.round(videoDuration())]],
+                    format: 'mm:ss',
+                    textStyle: { color: '#8c8c8c' },
+                    titleTextStyle: { color: '#ff0066' },
+                    gridlines: { color: '#666666' }
+                },
+                vAxis: {
+                    title: 'Enjoyment',
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        max: 100,
+                    },
+                    ticks: [0, 25, 50, 75, 100],
+                    textStyle: { color: '#8c8c8c' },
+                    titleTextStyle: { color: '#ff0066' },
+                    gridlines: { color: '#666666' }
+                },
+                backgroundColor: 'transparent',
+                title: videoData['title'],
+                legend: 'none',
+                width: 1000,
+                height: 400,
+                colors: ['#ff0066']
+            };
+
+            var printchart = new google.visualization.AreaChart(document.getElementById('printchart_div'));
+            printchart.draw(data, printoptions);
+
+            window.location = printchart.getImageURI();
         }
 
     </script>
