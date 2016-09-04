@@ -170,6 +170,17 @@
         function videoDuration() {
             return (player.getDuration() - 1)
         }
+        function getDate()
+        {
+            var currentdate = new Date();
+            var datetime =  (currentdate.getMonth() + 1) + "/"
+                            + currentdate.getDate() + "/"
+                            + currentdate.getFullYear() + " "
+                            + currentdate.getHours() + ":"
+                            + currentdate.getMinutes() + ":"
+                            + currentdate.getSeconds();
+            return datetime;
+        }
     </script>
 
     <script type="text/javascript">
@@ -254,7 +265,7 @@
                         [0, 0, Math.round(videoDuration() * (7 / 8))], [0, 0, Math.round(videoDuration())]],
                     format: 'mm:ss',
                     textStyle: { color: '#8c8c8c' },
-                    titleTextStyle: { color: '#8c8c8c' },
+                    titleTextStyle: { color: 'black' },
                     gridlines: { color: '#666666' }
                 },
                 vAxis: {
@@ -265,11 +276,11 @@
                     },
                     ticks: [0, 25, 50, 75, 100],
                     textStyle: { color: '#8c8c8c' },
-                    titleTextStyle: { color: '#8c8c8c' },
+                    titleTextStyle: { color: 'black' },
                     gridlines: { color: '#666666' }
                 },
                 backgroundColor: 'transparent',
-                title: videoData['title'],
+                title: videoData['title'] + '\n' + getDate(),
                 legend: 'none',
                 width: 1000,
                 height: 400,
