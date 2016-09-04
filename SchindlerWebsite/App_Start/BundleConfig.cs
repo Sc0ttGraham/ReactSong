@@ -23,6 +23,10 @@ namespace SchindlerWebsite
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/rangeslider").Include(
+                     "~/Scripts/rangeslider.js",
+                     "~/Scripts/rangeslider.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
