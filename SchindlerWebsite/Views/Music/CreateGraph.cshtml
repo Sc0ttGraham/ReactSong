@@ -60,6 +60,28 @@
             /*fix for FF unable to apply focus style bug */
             /*required for proper track sizing in FF*/
         }
+
+        .datatable{
+            background-color: white;
+            color: black;
+            border: 3px solid #ff0066;
+            opacity: 0.8;
+            margin-right: 5px;
+        }
+            .datatable:hover {
+                opacity: 1;
+            }
+
+        .datatable td{
+            padding-right: 50px;
+        }
+
+        .printchartcontainer {
+            opacity: 0.8;
+        }
+            .printchartcontainer:hover{
+                opacity: 1;
+            }
     </style>
 </head>
 <body>
@@ -79,7 +101,14 @@
         </div>
 
         <button onclick="printChart()">Export Data</button> <br /><br />
-        <div id="printchart_div"></div>
+
+        <p id="instructions" style="color:#8c8c8c"></p>
+
+        <div style="display: flex; display: -webkit-flex;">
+            <table class="datatable" id="printdata"></table>
+            <div class="printchartcontainer" id="printchart_div"></div>
+        </div>
+
 
     </div>
 
@@ -180,6 +209,17 @@
                             + currentdate.getMinutes() + ":"
                             + currentdate.getSeconds();
             return datetime;
+        }
+
+        function formatCSV(s)
+        {
+            var front = "<tr><td>";
+            var back = "</td><td></td></tr>";
+            var r = front + s;
+            r = r.split("\n").join("</td></tr><tr><td>");
+            r = r.split(",").join("</td><td>");
+            r = r + back;
+            return r;
         }
     </script>
 
@@ -290,11 +330,12 @@
             var printchart = new google.visualization.AreaChart(document.getElementById('printchart_div'));
             printchart.draw(data, printoptions);
 
-            //window.location = printchart.getImageURI();
+            document.getElementById('instructions').innerHTML = '<hr />Feel free to copy the data in the table below, or save the image of the chart you\'ve made!';
 
-            document.getElementById('printchart_div').innerHTML = '<img src="' + printchart.getImageURI() + '">';
+            document.getElementById('printchart_div').innerHTML = '<img style="border: 3px solid #ff0066; width: 80%" src="' + printchart.getImageURI() + '">';
 
-            //document.getElementById('printchart_div').outerHTML = '<a href="' + printchart.getImageURI() + '">Printable version</a>';
+            document.getElementById('printdata').innerHTML = formatCSV(google.visualization.dataTableToCsv(data));
+
         }
 
     </script>
