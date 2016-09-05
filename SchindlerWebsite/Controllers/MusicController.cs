@@ -17,6 +17,10 @@ namespace SchindlerWebsite.Controllers
         [HttpGet]
         public ActionResult CreateGraph(string search)
         {
+            if(search == null || search == "")
+            {
+                return new HttpNotFoundResult("Please insert valid video URL");
+            }
             SongQuery query = new SongQuery(search);
             return View(query);
         }
