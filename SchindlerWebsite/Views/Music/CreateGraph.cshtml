@@ -82,6 +82,15 @@
             .printchartcontainer:hover{
                 opacity: 1;
             }
+
+        .audiotoggle {
+            color: #ff0066;
+            font-size: 20px;
+        }
+             .audiotoggle:hover {
+                color: #ff9999;
+                transition: color 0.5s ease-out;
+            }
     </style>
 </head>
 <body>
@@ -93,7 +102,11 @@
 
         <div id="player"></div>
 
-        <h3 style="text-align:center"><text class="timer"><text id="videoTime">0:00</text>/<text id="totalTime">0:00</text></text>  <text id="videoTitle" class="videoTitle"></text></h3>
+
+        <h3 style="text-align:center">
+        <text class="audiotoggle" id="toggleAudio" onclick="toggleAudio()"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></text>
+        <text class="timer"><text id="videoTime">0:00</text>/<text id="totalTime">0:00</text></text>  <text id="videoTitle" class="videoTitle"></text>
+        </h3>
         
         <div style="display: flex; display: -webkit-flex;">
             <div><input type="range" id="rating" value="0" data-orientation="vertical"></div>
@@ -154,6 +167,19 @@
             }
         }
 
+        function toggleAudio()
+        {
+            if(player.getPlayerState() == 1)
+            {
+                player.pauseVideo();
+                document.getElementById("toggleAudio").innerHTML = "<span class=\"glyphicon glyphicon-play\" aria-hidden=\"true\">";
+            }
+            else if (player.getPlayerState() == 2)
+            {
+                player.playVideo();
+                document.getElementById("toggleAudio").innerHTML = "<span class=\"glyphicon glyphicon-pause\" aria-hidden=\"true\">";
+            }
+        }
     </script>
 
     <script>
