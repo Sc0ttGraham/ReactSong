@@ -91,6 +91,10 @@
                 color: #ff9999;
                 transition: color 0.5s ease-out;
             }
+        .instructions {
+            color:  #666666;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -99,23 +103,24 @@
             <input id="userURL" type="text" value=@Model.URL>
             <br>
         </div>
-
+       
         <div id="player"></div>
-
 
         <h3 style="text-align:center">
         <text class="audiotoggle" id="toggleAudio" onclick="toggleAudio()"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></text>
         <text class="timer"><text id="videoTime">0:00</text>/<text id="totalTime">0:00</text></text>  <text id="videoTitle" class="videoTitle"></text>
         </h3>
-        
+        <p class="instructions">To rate the song, use the slider to the left of the graph.</p>
         <div style="display: flex; display: -webkit-flex;">
             <div><input type="range" id="rating" value="0" data-orientation="vertical"></div>
             <div id="chart_div" style="width:100%; height:400px;"></div> <br />
         </div>
 
+        <p class="instructions">When you are done rating the song, click on Export Data.</p>
+        
         <button onclick="printChart()">Export Data</button> <br /><br />
 
-        <p id="instructions" style="color:#8c8c8c"></p>
+        <p id="instructions" style="color: #666666; text-align: center;"></p>
 
         <div style="display: flex; display: -webkit-flex;">
             <table class="datatable" id="printdata"></table>
@@ -356,7 +361,7 @@
             var printchart = new google.visualization.AreaChart(document.getElementById('printchart_div'));
             printchart.draw(data, printoptions);
 
-            document.getElementById('instructions').innerHTML = '<hr />Feel free to copy the data in the table below, or save the image of the chart you\'ve made!';
+            document.getElementById('instructions').innerHTML = '<hr />Feel free to copy the data in the table below, or save the image of the chart you\'ve made! <br /> Right click on the graph and choose “Save image as…”';
 
             document.getElementById('printchart_div').innerHTML = '<img style="border: 3px solid #ff0066; width: 80%" src="' + printchart.getImageURI() + '">';
 
